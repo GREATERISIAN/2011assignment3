@@ -166,8 +166,11 @@ class TreapList<E>
         // otherwise, search in the right subtree
         return searchNode(root.right, key);
     }*/
- ////////////////////////////////////////////////////////////////////////
-    // Recursive function to delete a key from a given treap
+public void clear(){
+    this.root=null;
+}
+    
+ // Recursive function to delete a key from a given treap
     public E remove(int index){
         return deleteNode(this.root, index).getValue();
     }
