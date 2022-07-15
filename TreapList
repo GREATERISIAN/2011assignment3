@@ -250,7 +250,7 @@ public void clear(){
  
     // Utility function to print two-dimensional view of a treap using
     // reverse inorder traversal
-    public String toString(TreapNode root, int space)
+    public String printTreap(TreapNode root, int space)
     {
         final int height = 10;
         String returnvalue=null;
