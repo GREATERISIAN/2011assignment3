@@ -250,7 +250,7 @@ public void clear(){
  
     // Utility function to print two-dimensional view of a treap using
     // reverse inorder traversal
-    public static void printTreap(TreapNode root, int space)
+    public String toString(TreapNode root, int space)
     {
         final int height = 10;
  
@@ -262,8 +262,8 @@ public void clear(){
         // increase distance between levels
         space += height;
  
-        // print the right child first
-        printTreap(root.right, space);
+        // print the left child first
+        printTreap(root.left, space);
         System.lineSeparator();
  
         // print the current node after padding with spaces
@@ -275,7 +275,7 @@ public void clear(){
  
         // print the left child
         System.lineSeparator();
-        printTreap(root.left, space);
+        printTreap(root.right, space);
     }
  /** 
     public static void main(String[] args)
