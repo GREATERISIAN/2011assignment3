@@ -253,6 +253,7 @@ public void clear(){
     public String toString(TreapNode root, int space)
     {
         final int height = 10;
+        String returnvalue=null;
  
         // Base case
         if (root == null) {
@@ -263,19 +264,20 @@ public void clear(){
         space += height;
  
         // print the left child first
-        printTreap(root.left, space);
+        returnvalue+=printTreap(root.left, space);
         System.lineSeparator();
  
         // print the current node after padding with spaces
         for (int i = height; i < space; i++) {
-            System.out.print(' ');
+            returnvalue+=', ';
         }
  
-        System.out.println(root.data + "(" + root.priority + ")");
+        returnvalue+=(root.data + "[" + root.priority + "]\n");
  
         // print the left child
         System.lineSeparator();
-        printTreap(root.right, space);
+        returnvalue+=printTreap(root.right, space);
+        return returnvalue;
     }
  /** 
     public static void main(String[] args)
