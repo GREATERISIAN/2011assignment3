@@ -69,13 +69,13 @@ class TreapList<E>
     }
  
     
-    public static void add(int index, E data){
+    public void add(int index, E data){
         root=add(this.root, index, data);
             this.root=root;
     }
      // Recursive function to insert a given key with a priority into treap
      //returns the base of the tree after completion
-      private static TreapNode add(TreapNode root, int index, E data)
+      private TreapNode add(TreapNode root, int index, E data)
     {
         // base case
         if (root == null) {
@@ -117,9 +117,36 @@ class TreapList<E>
         root.treecount++;
         return root;
     }
+    // Recursive function to search for a key in a given treap
+    public E get(int index){
+        searchnode(this.root, index );
+    }
+    private E searchNode(TreapNode root, int key)
+    {
+        // if the key is not present in the tree
+        if (root == null) {
+            return false;
+        }
+ 
+        // if the key is found
+
+ 
+        // if the key is less than the root node, search in the left subtree
+        if (root.left!=null){
+        if(key < root.left.treecount) {
+            return searchNode(root.left, key);
+        }
+        key-=root.left.treecount;
+    }
+        if (key==0) {
+            return root.data;
+        } 
+        // otherwise, search in the right subtree
+        return searchNode(root.right, key-1);
+    }
  
     // Recursive function to search for a key in a given treap
-    public static boolean searchNode(TreapNode root, int key)
+    private boolean searchNode(TreapNode root, int key)
     {
         // if the key is not present in the tree
         if (root == null) {
