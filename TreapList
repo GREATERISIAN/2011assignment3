@@ -241,8 +241,11 @@ public void clear(){
  
         // if the key is found
        
- 
+        root.treecount--;
         return new pair<Treapnode, E>(root, data);
+    }
+    public int size(){
+        return this.root.treecount;
     }
  
     // Utility function to print two-dimensional view of a treap using
