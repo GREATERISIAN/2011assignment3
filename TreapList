@@ -1,5 +1,5 @@
 import java.util.Random;
- 
+import javafx.util.Pair;
 // A Treap Node
 private class TreapNode<E>
 {
@@ -119,7 +119,7 @@ class TreapList<E>
     }
     // Recursive function to search for a key in a given treap
     public E get(int index){
-        searchnode(this.root, index );
+        return searchnode(this.root, index );
     }
     private E searchNode(TreapNode root, int key)
     {
@@ -146,7 +146,7 @@ class TreapList<E>
     }
  
     // Recursive function to search for a key in a given treap
-    private boolean searchNode(TreapNode root, int key)
+    /**private boolean searchNode(TreapNode root, int key)
     {
         // if the key is not present in the tree
         if (root == null) {
@@ -165,28 +165,34 @@ class TreapList<E>
  
         // otherwise, search in the right subtree
         return searchNode(root.right, key);
-    }
- 
+    }*/
+ ////////////////////////////////////////////////////////////////////////
     // Recursive function to delete a key from a given treap
-    public static TreapNode deleteNode(TreapNode root, int key)
+    public E remove(int index){
+        return deleteNode(this.root, index).getValue();
+    }
+    private  Pair<TreapNode,E> deleteNode(TreapNode root, int key)
     {
-        // base case: the key is not found in the tree
         if (root == null) {
             return null;
         }
- 
-        // if the key is less than the root node, recur for the left subtree
-        if (key < root.data) {
-            root.left = deleteNode(root.left, key);
-        }
- 
-        // if the key is more than the root node, recur for the right subtree
-        else if (key > root.data) {
-            root.right = deleteNode(root.right, key);
-        }
+        E data;
  
         // if the key is found
-        else {
+
+ 
+        // if the key is less than the root node, search in the left subtree
+        if (root.left!=null){
+        if(key < root.left.treecount) {
+            Pair<TreapNode,E> returns=deleteNode(root.left, key);
+            root.left=returns.getkey();
+            data=returns.getValue();
+
+        }
+        else{key-=root.left.treecount;}
+        }
+        if(key==0) {
+            data=root.data;
             // Case 1: node to be deleted has no children (it is a leaf node)
             if (root.left == null && root.right == null)
             {
@@ -204,14 +210,14 @@ class TreapList<E>
                     root = rotateLeft(root);
  
                     // recursively delete the left child
-                    root.left = deleteNode(root.left, key);
+                    root.left = deleteNode(root.left, 0).getkey();
                 }
                 else {
                     // call `rotateRight()` on the root
                     root = rotateRight(root);
  
                     // recursively delete the right child
-                    root.right = deleteNode(root.right, key);
+                    root.right = deleteNode(root.right, 0).getkey();
                 }
             }
  
@@ -222,8 +228,18 @@ class TreapList<E>
                 root = child;
             }
         }
+    
+
+       else  {
+        Pair<TreapNode,E> returns=deleteNode(root.right, key);
+        root.right=returns.getkey();
+        data=returns.getValue();
+        }
  
-        return root;
+        // if the key is found
+       
+ 
+        return new pair<Treapnode, E>(root, data);
     }
  
     // Utility function to print two-dimensional view of a treap using
