@@ -125,7 +125,7 @@ public class TreapList<E> implements List<E> {
         // if data is less than the root node, insert in the left subtree;
         // otherwise, insert in the right subtree
         if(root.left!=null){
-        if (index<= root.left.treecount)
+        if (index< root.left.treecount)
         {
             root.left = addNode(root.left, index, data);
  
