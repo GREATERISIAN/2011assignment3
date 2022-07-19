@@ -1,9 +1,10 @@
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
+//import java.util.ListIterator;
 import java.util.Random;
-//import javafx.util.Pair;
+import java.util.Stack;
+
 
 public class TreapList<E> implements List<E> {
 	
@@ -87,10 +88,9 @@ public class TreapList<E> implements List<E> {
 	
 	
 	
-	public Iterator<E> iterator() {
-		
-		
-		return null;
+	public Iterator<E> iterator() 
+	{
+		return new HelperIterator(this.root);
 	}
 	
 	
@@ -113,29 +113,73 @@ public class TreapList<E> implements List<E> {
 	 * -----------------------------------------------------------------------------------
 	 * Private methods for helping
 	 */
+	private class HelperIterator implements Iterator<E> 
+	{
+		private Stack<TreapNode<E>> current ;
+		
+		HelperIterator(TreapNode<E> root)
+	    {
+	        current = new Stack<TreapNode<E>>();
+	        CheckLeft(root);
+	    }
+		
+		private void CheckLeft(TreapNode<E> newNode)
+	    {
+	        while (newNode != null) {
+	            current.push(newNode);
+	            newNode = newNode.left;
+	        }
+	    }
+
+		@Override
+		public boolean hasNext() {
+			
+			return !current.isEmpty();
+		}
+
+
+		@Override
+		public E next() {
+			if (!hasNext())
+			{ throw new IndexOutOfBoundsException();}
+			
+			TreapNode<E> curr = current.pop();
+			 
+	        if (curr.right != null)
+	            CheckLeft(curr.right);
+	 
+	        return curr.data;
+		}
+		
+	}
 	
 	
 	private TreapNode<E> addNode(TreapNode<E> root, int index, E data)
     {
+	 if (index < 0 || index > size()) { throw new IndexOutOfBoundsException();}
         // base case
-        if (root == null) {
+     if (root == null) 
+        {
             return new TreapNode<E>(data);
         }
  
         // if data is less than the root node, insert in the left subtree;
         // otherwise, insert in the right subtree
-        if(root.left!=null){
-        if (index<= root.left.treecount)
+     if(root.left!=null)
         {
-            root.left = addNode(root.left, index, data);
+        	if (index<= root.left.treecount)
+        	{
+        		root.left = addNode(root.left, index, data);
  
             // rotate right if heap property is violated
-             if (root.left != null && root.left.priority > root.priority) {
-                root = rotateRight(root);
-            }
+        		if (root.left != null && root.left.priority > root.priority) 
+        		{
+        			root = rotateRight(root);
+        		}
 
         }
-        else{
+     else
+        {
             index=index-root.left.treecount;
         }
         
@@ -162,6 +206,7 @@ public class TreapList<E> implements List<E> {
 	
 	private E searchNode(TreapNode<E> root, int key)
     {
+		if (key < 0 || key > size()) { throw new IndexOutOfBoundsException();}
         // if the key is not present in the tree
         if (root == null) 
         {
@@ -189,6 +234,7 @@ public class TreapList<E> implements List<E> {
 	
 	private  TreapNode<E> deleteNode(TreapNode<E> root, int key)
 	    {
+		    if (key < 0 || key > size()) { throw new IndexOutOfBoundsException();}
 	        if (root == null) {
 	            return null;
 	        }
@@ -452,13 +498,13 @@ public class TreapList<E> implements List<E> {
 	}
 
 	@Override
-	public ListIterator<E> listIterator() {
+	public java.util.ListIterator<E> listIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ListIterator<E> listIterator(int index) {
+	public java.util.ListIterator<E> listIterator(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
