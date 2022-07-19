@@ -171,7 +171,7 @@ public class TreapList<E> implements List<E> {
 	 // Recursive function to delete a key from a given treap
 	public E remove(int index)
 	{
-        this.root=deletenode(this.root, index);
+        this.root=deleteNode(this.root, index);
         E data=this.returndata;
         
         
@@ -219,14 +219,14 @@ public class TreapList<E> implements List<E> {
 	                    root = rotateLeft(root);
 	 
 	                    // recursively delete the left child
-	                    root.left = deleteNode(root.left, 0).getkey();
+	                    root.left = deleteNode(root.left, 0);
 	                }
 	                else {
 	                    // call `rotateRight()` on the root
 	                    root = rotateRight(root);
 	 
 	                    // recursively delete the right child
-	                    root.right = deleteNode(root.right, 0).getkey();
+	                    root.right = deleteNode(root.right, 0);
 	                }
 	            }
 	 
