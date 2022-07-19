@@ -141,7 +141,11 @@ public class TreapList<E> implements List<E> {
         
     }
     else if(index==0){
-        root.left = addNode(root.left, index, data);
+        root.left = newNode(root.left, data);
+		            // rotate right if heap property is violated
+					if (root.left != null && root.left.priority > root.priority) {
+						root = rotateRight(root);
+					}
 
     }
 
@@ -158,7 +162,20 @@ public class TreapList<E> implements List<E> {
         return root;
     }
 	
-	
+	private  TreapNode<E> newNode(TreapNode<E> root, E data){
+		if(root==null){
+			root=new TreapNode<E>(data);
+		}
+		else{
+			root.right=newNode(root.right,data);
+			if (root.right != null && root.right.priority > root.priority) {
+                root = rotateLeft(root);
+            }
+		}
+		root.treecount++;
+		return root;
+
+	}
 	
 	private E searchNode(TreapNode<E> root, int key)
     {
@@ -335,10 +352,21 @@ public class TreapList<E> implements List<E> {
   {
       TreapNode<E> L = root.left;
       TreapNode<E> Y = root.left.right;
+	  
 
       // rotate
       L.right = root;
       root.left = Y;
+	  L.treecount=root.treecount;
+	  root.treecount=1;
+	  if(root.right!=null){
+		root.treecount+=root.right.treecount;
+
+	  }
+	  if(root.left!=null){
+		root.treecount+=root.left.treecount;
+
+	  }
 
       // set a new root
       return L;
