@@ -40,20 +40,25 @@ public class RunTester {
         
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
-        testlist.add(5,
-        "5");
+        testlist.add(5,"5");
         baselist.add(5,"5");
         
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
+        String s = " ";
+        System.out.println(s);
         Iterator test=testlist.iterator();
         Iterator base=baselist.iterator();
-        for(int i=0; i<10l; i++){
+        for(int i=0; i<testlist.size(); i++){
             System.out.println("I is "+i);
             System.out.println(test.next());
             System.out.println(base.next());
+            System.out.println(s);
         }
-
+       
+       // testlist.remove(0);
+       System.out.println(baselist.size());
+        System.out.println(testlist.toString());
     }
     
 }
