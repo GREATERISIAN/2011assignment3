@@ -374,6 +374,16 @@ public class TreapList<E> implements List<E> {
 	        // rotate
 	        R.left = root;
 	        root.right = X;
+			R.treecount=root.treecount;
+			root.treecount=1;
+			if(root.right!=null){
+			  root.treecount+=root.right.treecount;
+	  
+			}
+			if(root.left!=null){
+			  root.treecount+=root.left.treecount;
+	  
+			}
 	 
 	        // set a new root
 	        return R;
@@ -423,15 +433,19 @@ public class TreapList<E> implements List<E> {
   
   
   private StringBuilder inorder(TreapNode<E> root, StringBuilder sb) 
-	{     
+	{ 
+	   System.out.println("inordering");  
       if(root == null) 
       {
           return sb;
       }
       
       inorder(root.left, sb);
+
       sb.append(root.data).append(", ");
+	  System.out.print("I have checked the root. The data of the root is"+root.data+"and the sb is "+sb);//TESTING delete later
       inorder(root.right, sb);
+
       
       return sb;
 	}
