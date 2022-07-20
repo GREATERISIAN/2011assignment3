@@ -100,7 +100,7 @@ public class TreapList<E> implements List<E> {
 		{   if (size() == 0) return "[]";
 			StringBuilder sb = new StringBuilder();
 			sb.append('[');
-			sb.append(inorder(this.root,sb));
+			sb.append(inorder(this.root));
 			sb.append(']');
 			
 			return sb.toString();
@@ -160,7 +160,9 @@ public class TreapList<E> implements List<E> {
         // base case
      if (root == null) 
         {
-            return new TreapNode<E>(data);
+            root=new TreapNode<E>(data);
+			root.treecount=1;
+			return root;
         }
  
         // if data is less than the root node, insert in the left subtree;
@@ -178,13 +180,12 @@ public class TreapList<E> implements List<E> {
         			}
 
         		}
-     		else
-        		{
+     		
             		index=index-root.left.treecount;
-        		}
+        		
         
     	}
-    else if(index==0)
+     if(index==0)
 	{
         root.left = newNode(root.left, data);
 		            // rotate right if heap property is violated
@@ -196,13 +197,10 @@ public class TreapList<E> implements List<E> {
     }
 
 
-    else 
+    else if(index>0) 
 		{
-            root.left = newNode(root.right, data);
-				if (root.left != null && root.left.priority > root.priority) 
-					{
-						root = rotateRight(root);
-					}
+            root.right = addNode(root.right,index-1, data);
+		
  
             // rotate left if heap property is violated
             	if (root.right != null && root.right.priority > root.priority) 
@@ -440,19 +438,28 @@ public class TreapList<E> implements List<E> {
   }
   
   
-  private StringBuilder inorder(TreapNode<E> root, StringBuilder sb) 
-	{ 
-	   System.out.println("inordering");  
+  private String inorder(TreapNode<E> root) 
+	{     
+	  //Base Case
       if(root == null) 
       {
-        return null;
+        return "";
       }
       
-      inorder(root.left, sb);
-      sb.append(root.data).append(", ");
-	  System.out.print("I have checked the root. The data of the root is"+root.data+"and the sb is "+sb);//TESTING delete later
-      inorder(root.right, sb);
-      return sb;
+      String left = inorder(root.left);
+      if(!left.isEmpty()) 
+      {
+    	  left = left + ", ";
+      }
+      
+      String right = inorder(root.right); 
+      if(!right.isEmpty()) 
+      {
+    	  right = ", "+right ;
+      }
+      
+      
+      return left + root.data + right;
 	}
 	/*
 	 * ------------------------------------------------------------------------------------------
