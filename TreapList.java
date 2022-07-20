@@ -100,7 +100,7 @@ public class TreapList<E> implements List<E> {
 		{   if (size() == 0) return "[]";
 			StringBuilder sb = new StringBuilder();
 			sb.append('[');
-			sb.append(inorder(this.root));
+			sb.append(inorder(this.root,sb));
 			sb.append(']');
 			
 			return sb.toString();
@@ -110,7 +110,7 @@ public class TreapList<E> implements List<E> {
 	
 	
 	/*
-	 * -----------------------------------------------------------------------------------
+	 * -----------------------------------------------------------------------------------------------------------------------------------
 	 * Private methods for helping
 	 */
 	private class HelperIterator implements Iterator<E> 
@@ -382,6 +382,16 @@ public class TreapList<E> implements List<E> {
 	        // rotate
 	        R.left = root;
 	        root.right = X;
+			R.treecount=root.treecount;
+			root.treecount=1;
+			if(root.right!=null){
+			  root.treecount+=root.right.treecount;
+	  
+			}
+			if(root.left!=null){
+			  root.treecount+=root.left.treecount;
+	  
+			}
 	 
 	        // set a new root
 	        return R;
@@ -430,29 +440,19 @@ public class TreapList<E> implements List<E> {
   }
   
   
-  private String inorder(TreapNode<E> root) 
-	{     
-	  //Base Case
+  private StringBuilder inorder(TreapNode<E> root, StringBuilder sb) 
+	{ 
+	   System.out.println("inordering");  
       if(root == null) 
       {
-        return "";
+        return null;
       }
       
-      String left = inorder(root.left);
-      if(!left.isEmpty()) 
-      {
-    	  left = left + ", ";
-      }
-      
-      String right = inorder(root.right); 
-      if(!right.isEmpty()) 
-      {
-    	  right = right + ", ";
-      }
-      
-      
-      return left + root.data + right ; 
-	
+      inorder(root.left, sb);
+      sb.append(root.data).append(", ");
+	  System.out.print("I have checked the root. The data of the root is"+root.data+"and the sb is "+sb);//TESTING delete later
+      inorder(root.right, sb);
+      return sb;
 	}
 	/*
 	 * ------------------------------------------------------------------------------------------
