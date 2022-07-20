@@ -459,26 +459,27 @@ public class TreapList<E> implements List<E> {
   
   private String inorder(TreapNode<E> root) 
 	{     
+		String leftChild , rightChild , finalValue;
 	  //Base Case
       if(root == null) 
       {
         return "";
       }
       
-      String leftChild = inorder(root.left);
-      if(!leftChild.isEmpty()) 
-      {
+      leftChild = inorder(root.left);
+      	if(!leftChild.isEmpty()) 
+      	{
     	  leftChild = leftChild + ", ";
-      }
+      	}
       
-      String rightChild = inorder(root.right); 
-      if(!rightChild.isEmpty()) 
-      {
+      rightChild = inorder(root.right); 
+      	if(!rightChild.isEmpty()) 
+      	{
     	  rightChild = ", "+rightChild ;
-      }
+      	}
       
-      
-      return leftChild + root.data + rightChild;
+       finalValue = leftChild+root.data+rightChild ;
+      return finalValue;
 	}
 	/*
 	 * ------------------------------------------------------------------------------------------
