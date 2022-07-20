@@ -30,6 +30,19 @@ public class RunTester {
         System.out.println(j);
 
         System.out.println(baselist.toString());
+        System.out.println(testlist.get(5));
+        System.out.println(baselist.get(5));
+        testlist.remove(5);
+        baselist.remove(5);
+        
+        System.out.println(testlist.get(5));
+        System.out.println(baselist.get(5));
+        testlist.add(5,
+        "5");
+        baselist.add(5,"5");
+        
+        System.out.println(testlist.get(5));
+        System.out.println(baselist.get(5));
 
     }
     

@@ -172,6 +172,7 @@ public class TreapList<E> implements List<E> {
         	if (index<= root.left.treecount)
         		{
         			root.left = addNode(root.left, index, data);
+					index=index-root.left.treecount;
  
             // rotate right if heap property is violated
         			if (root.left != null && root.left.priority > root.priority) 
@@ -181,8 +182,9 @@ public class TreapList<E> implements List<E> {
 
         		}
      		
-            		index=index-root.left.treecount;
-        		
+            	else{	
+				index=index-root.left.treecount;
+				}
         
     	}
      if(index==0)
@@ -325,8 +327,8 @@ public class TreapList<E> implements List<E> {
 	        }
 	 
 	        // if the key is found
-	       
-	        root.treecount--;
+	       if(root!=null){
+	        root.treecount--;}
 	        return root;
 	    }
 	    
