@@ -165,45 +165,50 @@ public class TreapList<E> implements List<E> {
  
         // if data is less than the root node, insert in the left subtree;
         // otherwise, insert in the right subtree
-     if(root.left!=null)
+    if(root.left!=null)
         {
         	if (index<= root.left.treecount)
-        	{
-        		root.left = addNode(root.left, index, data);
+        		{
+        			root.left = addNode(root.left, index, data);
  
             // rotate right if heap property is violated
-        		if (root.left != null && root.left.priority > root.priority) 
-        		{
-        			root = rotateRight(root);
-        		}
+        			if (root.left != null && root.left.priority > root.priority) 
+        			{
+        				root = rotateRight(root);
+        			}
 
-        }
-     else
-        {
-            index=index-root.left.treecount;
-        }
+        		}
+     		else
+        		{
+            		index=index-root.left.treecount;
+        		}
         
-    }
-    else if(index==0){
+    	}
+    else if(index==0)
+	{
         root.left = newNode(root.left, data);
 		            // rotate right if heap property is violated
-					if (root.left != null && root.left.priority > root.priority) {
-						root = rotateRight(root);
-					}
+			if (root.left != null && root.left.priority > root.priority) 
+				{
+					root = rotateRight(root);
+				}
 
     }
 
 
-        else {
+    else 
+		{
             root.left = newNode(root.right, data);
-			if (root.left != null && root.left.priority > root.priority) {
-				root = rotateRight(root);
-			}
+				if (root.left != null && root.left.priority > root.priority) 
+					{
+						root = rotateRight(root);
+					}
  
             // rotate left if heap property is violated
-            if (root.right != null && root.right.priority > root.priority) {
-                root = rotateLeft(root);
-            }
+            	if (root.right != null && root.right.priority > root.priority) 
+					{
+               		 	root = rotateLeft(root);
+            		}
         }
         root.treecount++;
         return root;
