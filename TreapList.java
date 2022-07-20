@@ -195,7 +195,10 @@ public class TreapList<E> implements List<E> {
 
 
         else {
-            root.right = addNode(root.right, index-1, data);
+            root.left = newNode(root.right, index-1, data);
+			if (root.left != null && root.left.priority > root.priority) {
+				root = rotateRight(root);
+			}
  
             // rotate left if heap property is violated
             if (root.right != null && root.right.priority > root.priority) {
