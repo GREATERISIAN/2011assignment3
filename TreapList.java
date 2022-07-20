@@ -100,7 +100,7 @@ public class TreapList<E> implements List<E> {
 		{   if (size() == 0) return "[]";
 			StringBuilder sb = new StringBuilder();
 			sb.append('[');
-			sb.append(inorder(this.root, sb));
+			sb.append(inorder(this.root));
 			sb.append(']');
 			
 			return sb.toString();
@@ -214,6 +214,9 @@ public class TreapList<E> implements List<E> {
         return root;
     }
 	
+
+
+
 	private  TreapNode<E> newNode(TreapNode<E> root, E data){
 		if(root==null){
 			root=new TreapNode<E>(data);
@@ -427,20 +430,30 @@ public class TreapList<E> implements List<E> {
   }
   
   
-  private StringBuilder inorder(TreapNode<E> root, StringBuilder sb) 
+  private String inorder(TreapNode<E> root) 
 	{     
+	  //Base Case
       if(root == null) 
       {
-          return sb;
+        return "";
       }
       
-      inorder(root.left, sb);
-      sb.append(root.data).append(", ");
-      inorder(root.right, sb);
+      String left = inorder(root.left);
+      if(!left.isEmpty()) 
+      {
+    	  left = left + ", ";
+      }
       
-      return sb;
-	}
+      String right = inorder(root.right); 
+      if(!right.isEmpty()) 
+      {
+    	  right = right + ", ";
+      }
+      
+      
+      return left + root.data + right ; 
 	
+	}
 	/*
 	 * ------------------------------------------------------------------------------------------
 	 * End of Private methods
