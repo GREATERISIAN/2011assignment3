@@ -464,21 +464,17 @@ public class TreapList<E> implements List<E> {
       {
         return "";
       }
+	  String full="";
       
-      String left = inorder(root.left);
-      if(!left.isEmpty()) 
-      {
-    	  left = left + ", ";
-      }
-      
-      String right = inorder(root.right); 
-      if(!right.isEmpty()) 
-      {
-    	  right = ", "+right ;
-      }
-      
-      
-      return left + root.data + right;
+      if(root.left!=null){
+		full+=(inorder(root.left)+", ");
+
+	  }
+	  full+=root.data;
+	  if(root.right!=null){
+		full+=", "+inorder(root.right);
+	  }
+	  return full;
 	}
 	/*
 	 * ------------------------------------------------------------------------------------------
