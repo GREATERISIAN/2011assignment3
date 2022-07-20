@@ -1,7 +1,7 @@
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-//import java.util.ListIterator;
+import java.util.ListIterator;
 import java.util.Random;
 import java.util.Stack;
 
@@ -529,13 +529,13 @@ public class TreapList<E> implements List<E> {
 	}
 
 	@Override
-	public java.util.ListIterator<E> listIterator() {
+	public ListIterator<E> listIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public java.util.ListIterator<E> listIterator(int index) {
+	public ListIterator<E> listIterator(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
