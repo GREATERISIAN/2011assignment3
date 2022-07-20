@@ -465,20 +465,20 @@ public class TreapList<E> implements List<E> {
         return "";
       }
       
-      String left = inorder(root.left);
-      if(!left.isEmpty()) 
+      String leftChild = inorder(root.left);
+      if(!leftChild.isEmpty()) 
       {
-    	  left = left + ", ";
+    	  leftChild = leftChild + ", ";
       }
       
-      String right = inorder(root.right); 
-      if(!right.isEmpty()) 
+      String rightChild = inorder(root.right); 
+      if(!rightChild.isEmpty()) 
       {
-    	  right = ", "+right ;
+    	  rightChild = ", "+rightChild ;
       }
       
       
-      return left + root.data + right;
+      return leftChild + root.data + rightChild;
 	}
 	/*
 	 * ------------------------------------------------------------------------------------------
