@@ -119,6 +119,7 @@ public class TreapList<E> implements List<E> {
 		
 		HelperIterator(TreapNode<E> root)
 	    {
+
 	        current = new Stack<TreapNode<E>>();
 	        CheckLeft(root);
 	    }
@@ -274,12 +275,17 @@ public class TreapList<E> implements List<E> {
 	        // if the key is less than the root node, search in the left subtree
 	        if (root.left!=null){
 	        if(key < root.left.treecount) {
-	            TreapNode<E> returns=deleteNode(root.left, key);
+	            int newkey=key-root.left.treecount;
+				TreapNode<E> returns=deleteNode(root.left, key);
+
 	            root.left=returns;
 //	            data=returns.getValue();
+				key=newkey;
 
 	        }
-	        else{key-=root.left.treecount;}
+			else{
+	       key-=root.left.treecount;
+			}
 	        }
 	        if(key==0) {
 	            this.returndata=root.data;
@@ -320,7 +326,7 @@ public class TreapList<E> implements List<E> {
 	        }
 	    
 
-	       else  {
+	       else if(key>0) {
             key--;
 	        TreapNode<E> returns=deleteNode(root.right, key);
 	        root.right=returns;
@@ -340,37 +346,48 @@ public class TreapList<E> implements List<E> {
 	 
 	    // Utility function to print two-dimensional view of a treap using
 	    // reverse inorder traversal
-//	    public String printTreap(TreapNode<E> root, int space)
-//	    {
-//	        final int height = 10;
-//	        String returnvalue=null;
-//	 
-//	        // Base case
-//	        if (root == null) 
-//	        {
-//	            return returnvalue;
-//	        }
-//	 
-//	        // increase distance between levels
-//	        space += height;
-//	 
-//	        // print the left child first
-//	        returnvalue+=printTreap(root.left, space);
-//	        System.lineSeparator();
-//	 
-//	        // print the current node after padding with spaces
-//	        for (int i = height; i < space; i++) 
-//	        {
-//	            returnvalue+=", ";
-//	        }
-//	 
-//	        returnvalue+=(root.data + "[" + root.priority + "]\n");
-//	 
-//	        // print the left child
-//	        System.lineSeparator();
-//	        returnvalue+=printTreap(root.right, space);
-//	        return returnvalue;
-//	    }
+		public String printTreap(int space){
+			return printTreap(this.root, space);
+		}
+	    public String printTreap(TreapNode<E> root, int space)
+	    {
+
+	        final int height = 1;
+	        String returnvalue=(root.data + "[" + root.priority + "]{"+root.treecount+"}\n");
+	 
+	 
+	        // Base case
+	        if (root == null) 
+	        {
+	            return returnvalue;
+	        }
+	 
+	        // increase distance between levels
+	        space += height;
+
+	 
+	        // print the current node after padding with spaces
+		
+			if(root.left!=null){
+				returnvalue+=printTreap(root.left, space);
+				System.lineSeparator();
+				}
+			for (int i = height; i < space; i++) 
+	        {
+	            returnvalue+=" ";
+	        }
+	 
+	       
+	        // print the left child
+
+					 
+	        // print the left child first
+			if(root.right!=null){
+				System.lineSeparator();
+				returnvalue+=printTreap(root.right, space);
+			}
+			return returnvalue;
+	    }
 
 	
 

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class RunTester {
    public static void main(String[] args) {
@@ -32,8 +33,10 @@ public class RunTester {
         System.out.println(baselist.toString());
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
+        System.out.println(testlist.printTreap(0));
         testlist.remove(5);
         baselist.remove(5);
+
         
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
@@ -43,6 +46,13 @@ public class RunTester {
         
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
+        Iterator test=testlist.iterator();
+        Iterator base=baselist.iterator();
+        for(int i=0; i<10l; i++){
+            System.out.println("I is "+i);
+            System.out.println(test.next());
+            System.out.println(base.next());
+        }
 
     }
     
