@@ -346,7 +346,7 @@ public class TreapList<E> implements List<E> {
 	 
 	    // Utility function to print two-dimensional view of a treap using
 	    // reverse inorder traversal
-		public String printTreap(int space){
+/* 		public String printTreap(int space){
 			return printTreap(this.root, space);
 		}
 	    public String printTreap(TreapNode<E> root, int space)
@@ -389,7 +389,7 @@ public class TreapList<E> implements List<E> {
 			return returnvalue;
 	    }
 
-	
+	*/
 
 	    private TreapNode<E> rotateLeft(TreapNode<E> root)
 	    {
