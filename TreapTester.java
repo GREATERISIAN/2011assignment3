@@ -104,6 +104,7 @@ public class TreapTester {
 			assertTrue(list.size() == 3);
 			list.remove(1);
 			assertTrue(list.size() == 2);
+			System.out.println(list.toString());
 			assertTrue(list.toString().equals("[1, 3]") 
 					|| list.get(0).equals("1") && list.get(1).equals("3"));
 		}
@@ -113,15 +114,22 @@ public class TreapTester {
 			Random rnd = new Random();
 			List <Integer> list1 = new ArrayList<>();
 			List <Integer> list2 = new TreapList<>();
-			for (int i = 0; i < 30000; i++){
-				if (rnd.nextDouble() < 0.5){
+
+			assertTrue("Blank list is not size 0", list2.size() == 0 && list1.size() == 0);
+			for (int i = 0; i < 17; i++)
+			{
+				if (rnd.nextDouble() < 0.5)
+				{
 					int position = rnd.nextInt(list1.size()+1);
 					//int value = rnd.nextInt(1000);
 					list1.add(position, i);
+					//System.out.println(position);
 					list2.add(position, i);
 				}
-				else{
-					if (list1.size() > 0){
+				else
+				{
+					if (list1.size() > 0)
+					{
 						int position = rnd.nextInt(list1.size());
 						list1.remove(position);
 						//System.out.println("L1: "+list1);
