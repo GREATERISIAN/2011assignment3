@@ -33,7 +33,7 @@ public class RunTester {
         System.out.println(baselist.toString());
         System.out.println(testlist.get(5));
         System.out.println(baselist.get(5));
-        System.out.println(testlist.printTreap(0));
+       // System.out.println(testlist.printTreap(0));
         testlist.remove(5);
         baselist.remove(5);
 

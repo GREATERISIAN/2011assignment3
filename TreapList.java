@@ -263,7 +263,7 @@ public class TreapList<E> implements List<E> {
 	
 	private  TreapNode<E> deleteNode(TreapNode<E> root, int key)
 	    {
-		    if (key < 0 || key > size()) { throw new IndexOutOfBoundsException();}
+		    if (key < 0 || key > size() || this.root== null) { throw new IndexOutOfBoundsException();}
 	        if (root == null) {
 	            return null;
 	        }
