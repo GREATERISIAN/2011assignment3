@@ -47,8 +47,8 @@ public class RunTester {
         System.out.println(baselist.get(5));
         String s = " ";
         System.out.println(s);
-        Iterator test=testlist.iterator();
-        Iterator base=baselist.iterator();
+        Iterator<String> test=testlist.iterator();
+        Iterator<String> base=baselist.iterator();
         for(int i=0; i<testlist.size(); i++){
             System.out.println("I is "+i);
             System.out.println(test.next());
