@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Random;
 
 import org.junit.FixMethodOrder;
@@ -13,6 +14,29 @@ import org.junit.Test;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TreapTester {
+		@Test
+		public void iteratorTest_10_pts() 
+		{
+			String out = "" , out1 = "";
+			List<String> testlist=new TreapList<String>();
+	        List<String> baselist=new ArrayList<String>();
+	        for (int i = 0; i < 100; i++)
+	        {
+	        	    String istring=""+i;
+					testlist.add(baselist.size(), istring);
+					baselist.add(baselist.size(), istring);
+			}
+	        Iterator<String> test=testlist.iterator();
+	        Iterator<String> base=baselist.iterator();
+	        for(int i=0; i<baselist.size(); i++){
+	            out = out + test.next() ;
+	            out1 = out1 + base.next();
+	        }
+	        System.out.println(out);
+	        System.out.println(out1);
+	        assertTrue("The Iterators are not same",out.equals(out1));
+	        
+		}
 	
 
 		@Test
