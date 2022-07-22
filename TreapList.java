@@ -18,15 +18,15 @@ public class TreapList<E> implements List<E> {
 	    int priority;
 	    int treecount;
 	    TreapNode<E> left, right;
-	 
-	    // constructor
-	    public TreapNode(E data)
-	    {
-	        this.treecount=0;
+		public TreapNode(E data){
+			this.treecount=0;
 	        this.data = data;
 	        this.priority = new Random().nextInt(100);
 	        this.left = this.right = null;
-	    }
+		}
+	 
+	    // constructor
+	   
 	}
 
 	   // TreapNode root;
@@ -35,6 +35,7 @@ public class TreapList<E> implements List<E> {
 	        this.root=null;
             this.returndata=null;
 	    }
+		
 
 	   
 	 
@@ -261,7 +262,7 @@ public class TreapList<E> implements List<E> {
 	
 	
 	
-	private  TreapNode<E> deleteNode(TreapNode<E> root, int key)
+	private  TreapNode<E> deleteNode(TreapNode<E> root)
 	    {
 		    if (key < 0 || key > size() || this.root== null) { throw new IndexOutOfBoundsException();}
 	        if (root == null) {
@@ -269,25 +270,9 @@ public class TreapList<E> implements List<E> {
 	        }
 	      
 	 
-	        // if the key is found
+	        
+	        if(true) {
 
-	 
-	        // if the key is less than the root node, search in the left subtree
-	        if (root.left!=null){
-	        if(key < root.left.treecount) {
-	            int newkey=key-root.left.treecount;
-				TreapNode<E> returns=deleteNode(root.left, key);
-
-	            root.left=returns;
-//	            data=returns.getValue();
-				key=newkey;
-
-	        }
-			else{
-	       key-=root.left.treecount;
-			}
-	        }
-	        if(key==0) {
 	            this.returndata=root.data;
 	            // Case 1: node to be deleted has no children (it is a leaf node)
 	            if (root.left == null && root.right == null)
@@ -304,17 +289,20 @@ public class TreapList<E> implements List<E> {
 	                {
 	                    // call `rotateLeft()` on the root
 	                    root = rotateLeft(root);
+						System.out.println(printTreap(1));
 	 
 	                    // recursively delete the left child
-	                    root.left = deleteNode(root.left, 0);
+	                    root.left = deleteNode(root.left);
+						
 	                }
 	                else {
 	                    // call `rotateRight()` on the root
 	                    root = rotateRight(root);
 	 
 	                    // recursively delete the right child
-	                    root.right = deleteNode(root.right, 0);
+	                    root.right = deleteNode(root.right);
 	                }
+					//to balance against decrease later. 
 	            }
 	 
 	            // Case 3: node to be deleted has only one child
@@ -322,9 +310,82 @@ public class TreapList<E> implements List<E> {
 	                // choose a child node
 	                TreapNode<E> child = (root.left != null)? root.left: root.right;
 	                root = child;
+					root.treecount++;
+					//to balance against decrease later. 
 	            }
 	        }
-	    
+			root.treecount--;
+			return root;
+		}
+			private  TreapNode<E> deleteNode(TreapNode<E> root, int key)
+			{
+				if (key < 0 || key >= size()) { throw new IndexOutOfBoundsException();}
+				if (root == null) {
+					return null;
+				}
+			  
+		 
+				// if the key is found
+	
+		 
+				// if the key is less than the root node, search in the left subtree
+				if (root.left!=null){
+				if(key < root.left.treecount) {
+					int newkey=key-root.left.treecount;
+					TreapNode<E> returns=deleteNode(root.left, key);
+	
+					root.left=returns;
+	//	            data=returns.getValue();
+					key=newkey;
+	
+				}
+				else{
+			   key-=root.left.treecount;
+				}
+				}
+				if(key==0) {
+	
+					this.returndata=root.data;
+					// Case 1: node to be deleted has no children (it is a leaf node)
+					if (root.left == null && root.right == null)
+					{
+						// deallocate the memory and update root to null
+						root = null;
+					}
+		 
+					// Case 2: node to be deleted has two children
+					else if (root.left != null && root.right != null)
+					{
+						// if the left child has less priority than the right child
+						if (root.left.priority < root.right.priority)
+						{
+							// call `rotateLeft()` on the root
+							root = rotateLeft(root);
+							System.out.println(printTreap(1));
+		 
+							// recursively delete the left child
+							root.left = deleteNode(root.left);
+							
+						}
+						else {
+							// call `rotateRight()` on the root
+							root = rotateRight(root);
+		 
+							// recursively delete the right child
+							root.right = deleteNode(root.right);
+						}
+						//to balance against decrease later. 
+					}
+		 
+					// Case 3: node to be deleted has only one child
+					else {
+						// choose a child node
+						TreapNode<E> child = (root.left != null)? root.left: root.right;
+						root = child;
+						root.treecount++;
+						//to balance against decrease later. 
+					}
+				}
 
 	       else if(key>0) {
             key--;
@@ -369,7 +430,7 @@ public class TreapList<E> implements List<E> {
 	        // print the current node after padding with spaces
 		
 			if(root.left!=null){
-				returnvalue+=printTreap(root.left, space);
+				returnvalue+=printTreap(root.left, space+1);
 				System.lineSeparator();
 				}
 			for (int i = height; i < space; i++) 
@@ -384,7 +445,7 @@ public class TreapList<E> implements List<E> {
 	        // print the left child first
 			if(root.right!=null){
 				System.lineSeparator();
-				returnvalue+=printTreap(root.right, space);
+				returnvalue+=printTreap(root.right, space+5);
 			}
 			return returnvalue;
 	    }
@@ -395,6 +456,9 @@ public class TreapList<E> implements List<E> {
 	    {
 	        TreapNode<E> R = root.right;
 	        TreapNode<E> X = root.right.left;
+			//System.out.println("rotating left");
+			//System.out.println(printTreap(root, 1));
+	  
 	 
 	        // rotate
 	        R.left = root;
@@ -409,6 +473,7 @@ public class TreapList<E> implements List<E> {
 			  root.treecount+=root.left.treecount;
 	  
 			}
+			//System.out.println(printTreap(root, 1));
 	 
 	        // set a new root
 	        return R;
@@ -436,7 +501,9 @@ public class TreapList<E> implements List<E> {
   {
       TreapNode<E> L = root.left;
       TreapNode<E> Y = root.left.right;
-	  
+	  //System.out.println("rotating right");
+	  //System.out.println(printTreap(root, 1));
+
 
       // rotate
       L.right = root;
@@ -451,6 +518,7 @@ public class TreapList<E> implements List<E> {
 		root.treecount+=root.left.treecount;
 
 	  }
+	  //System.out.println(printTreap(L, 1));
 
       // set a new root
       return L;

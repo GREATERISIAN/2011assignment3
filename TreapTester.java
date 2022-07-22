@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 import java.util.Random;
 
 import org.junit.FixMethodOrder;
@@ -14,29 +13,6 @@ import org.junit.Test;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TreapTester {
-		@Test
-		public void iteratorTest_10_pts() 
-		{
-			String out = "" , out1 = "";
-			List<String> testlist=new TreapList<String>();
-	        List<String> baselist=new ArrayList<String>();
-	        for (int i = 0; i < 100; i++)
-	        {
-	        	    String istring=""+i;
-					testlist.add(baselist.size(), istring);
-					baselist.add(baselist.size(), istring);
-			}
-	        Iterator<String> test=testlist.iterator();
-	        Iterator<String> base=baselist.iterator();
-	        for(int i=0; i<baselist.size(); i++){
-	            out = out + test.next() ;
-	            out1 = out1 + base.next();
-	        }
-	        System.out.println(out);
-	        System.out.println(out1);
-	        assertTrue("The Iterators are not same",out.equals(out1));
-	        
-		}
 	
 
 		@Test
@@ -102,7 +78,9 @@ public class TreapTester {
 			TreapList<String> list = new TreapList<>();
 			list.add("1"); list.add("2"); list.add("3");
 			assertTrue(list.size() == 3);
+			System.out.println(list.printTreap(1));
 			list.remove(1);
+			System.out.println(list.printTreap(1));
 			assertTrue(list.size() == 2);
 			System.out.println(list.toString());
 			assertTrue(list.toString().equals("[1, 3]") 
@@ -113,36 +91,42 @@ public class TreapTester {
 		public void randomAddRemove_25_pts(){
 			Random rnd = new Random();
 			List <Integer> list1 = new ArrayList<>();
-			List <Integer> list2 = new TreapList<>();
+			TreapList <Integer> list2 = new TreapList<>();
+			for (int i = 0; i < 3000; i++){
+				//System.out.println(i+"\n++++++++\n");
+			
 
-			assertTrue("Blank list is not size 0", list2.size() == 0 && list1.size() == 0);
-			for (int i = 0; i < 17; i++)
-			{
-				if (rnd.nextDouble() < 0.5)
-				{
+				if (rnd.nextDouble() < 0.5){
 					int position = rnd.nextInt(list1.size()+1);
+					//System.out.println(" add "+position);
 					//int value = rnd.nextInt(1000);
 					list1.add(position, i);
-					//System.out.println(position);
 					list2.add(position, i);
+					//System.out.println(list2.printTreap(1));
+					//System.out.println(list1);
+					//System.out.println(list2);
+
 				}
-				else
-				{
-					if (list1.size() > 0)
-					{
+				else{
+					if (list1.size() > 0){
+						//System.out.println(list2.printTreap(1));
+
+
 						int position = rnd.nextInt(list1.size());
+						//System.out.println("remove at position "+position);
+		
 						list1.remove(position);
 						//System.out.println("L1: "+list1);
 						list2.remove(position);
 						//System.out.println("L2: "+list2);
+											
 					}
 				}
 			}
 
 			//assertTrue("randomAddRemove_25_pts: toString" , list1.toString().equals(list2.toString()));
 			for (int i = 0; i < list1.size(); i++){
-				assertTrue("randomAddRemove_25_pts: " + list2.size() + ": " + i + "\n"+ list1 + "\n" + list2, 
-							list1.get(i).equals(list2.get(i)));
+				assertTrue(list1.get(i).equals(list2.get(i)));
 			}
 		}
 
