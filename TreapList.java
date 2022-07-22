@@ -264,8 +264,7 @@ public class TreapList<E> implements List<E> {
 	
 	private  TreapNode<E> deleteNode(TreapNode<E> root)
 	    {
-		    if (key < 0 || key > size() || this.root== null) { throw new IndexOutOfBoundsException();}
-	        if (root == null) {
+		    if (root == null) {
 	            return null;
 	        }
 	      
@@ -289,7 +288,7 @@ public class TreapList<E> implements List<E> {
 	                {
 	                    // call `rotateLeft()` on the root
 	                    root = rotateLeft(root);
-						System.out.println(printTreap(1));
+						//System.out.println(printTreap(1));
 	 
 	                    // recursively delete the left child
 	                    root.left = deleteNode(root.left);
@@ -361,7 +360,7 @@ public class TreapList<E> implements List<E> {
 						{
 							// call `rotateLeft()` on the root
 							root = rotateLeft(root);
-							System.out.println(printTreap(1));
+							//System.out.println(printTreap(1));
 		 
 							// recursively delete the left child
 							root.left = deleteNode(root.left);

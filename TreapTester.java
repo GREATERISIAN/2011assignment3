@@ -78,9 +78,9 @@ public class TreapTester {
 			TreapList<String> list = new TreapList<>();
 			list.add("1"); list.add("2"); list.add("3");
 			assertTrue(list.size() == 3);
-			System.out.println(list.printTreap(1));
+			//System.out.println(list.printTreap(1));
 			list.remove(1);
-			System.out.println(list.printTreap(1));
+			//System.out.println(list.printTreap(1));
 			assertTrue(list.size() == 2);
 			System.out.println(list.toString());
 			assertTrue(list.toString().equals("[1, 3]") 
